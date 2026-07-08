@@ -17,7 +17,8 @@ export class SimulatorApp {
   constructor(private readonly root: HTMLElement) {}
 
   async start(): Promise<void> {
-    const source = await fetch("/floorplans/default.txt").then((res) => res.text());
+    const floorplanUrl = new URL("floorplans/default.txt", import.meta.env.BASE_URL).toString();
+    const source = await fetch(floorplanUrl).then((res) => res.text());
     this.root.innerHTML = this.template();
     this.canvas = this.root.querySelector<HTMLCanvasElement>("#sim-canvas")!;
     this.mapText = this.root.querySelector<HTMLTextAreaElement>("#map-text")!;
