@@ -1,0 +1,37 @@
+digraph ProtocolLoop {
+  graph [
+    rankdir=LR,
+    bgcolor="white",
+    margin=0.08,
+    nodesep=0.45,
+    ranksep=0.55
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#8f8a80",
+    fillcolor="#f5f1e9",
+    fontname="DejaVu Sans",
+    fontsize=13,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#555555",
+    arrowsize=0.8,
+    penwidth=1.5
+  ];
+
+  danger [label="вонючий газ\nагент детектит\nX0 -> X1", fillcolor="#efe5f0"];
+  vote [label="голос агента\nX0 или X1", fillcolor="#eef2f6"];
+  crn [label="локальный CRN\nдвое переубеждают третьего\nодиночное X1 забывается", fillcolor="#f7eee6"];
+  timer [label="таймер агента\nрастет только в X1\nсбрасывается в X0", fillcolor="#f6f1da"];
+  commit [label="commit\nесли tau >= T_leave", fillcolor="#edf3e8"];
+  action [label="действие\nпокинуть", fillcolor="#e7f1ea"];
+
+  danger -> vote;
+  vote -> crn;
+  crn -> vote;
+  vote -> timer;
+  timer -> commit;
+  commit -> action;
+}
